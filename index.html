@@ -484,7 +484,7 @@ img.shoe.photo{display:block;width:100%;height:auto;mix-blend-mode:multiply}
 .card .pic{width:76%;margin-top:4%}
 .card:hover .pic{transform:translateY(-8px) scale(1.04)}
 .card .dots{align-items:center;flex-wrap:wrap}.card .dots span{font-size:11px;color:var(--muted);margin-left:4px}
-.card .new{color:var(--muted)}
+.card .new{color:var(--muted);height:auto;min-height:16px;line-height:1.4;margin-bottom:2px}
 .gallery .stage{width:min(54%,460px)}
 .gallery .stage .shoe{filter:none;mix-blend-mode:normal}
 .gallery .stage,.card .pic,.tile .art,.thumbs button,.line .th,.nf .lost,.fly{mix-blend-mode:multiply}
@@ -502,6 +502,23 @@ img.shoe.photo{display:block;width:100%;height:auto;mix-blend-mode:multiply}
 .nav-list a.sub{font-size:20px;padding:6px 0 6px 18px;border-bottom:0;color:#5c5148}
 .nf .lost .shoe{width:60%;margin:0 auto}
 @media (max-width:900px){.gallery .stage{width:66%}.tile .art .shoe.photo{width:46%}}
+
+/* colores en las tarjetas */
+.card .dots{gap:2px}
+.sw-dot{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;position:relative;cursor:pointer}
+.sw-dot::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--c);border:1px solid rgba(0,0,0,.15);transition:transform .25s var(--ease)}
+.sw-dot::after{content:"";position:absolute;inset:2px;border-radius:50%;border:1px solid transparent;transition:border-color .25s}
+.sw-dot:hover::before{transform:scale(1.15)}
+.sw-dot.on::after{border-color:var(--ink)}
+.card .cn{font-size:11px;color:var(--muted);margin-left:6px}
+.card .pic img{transition:opacity .14s ease}
+.card .pic img.swapping{opacity:0}
+/* texto de categoría con "Leer más" */
+.intro{max-width:640px;margin:14px auto 0}
+.intro-txt{color:#5c5148;font-size:15px;font-weight:300;line-height:1.65;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.intro.open .intro-txt{display:block;-webkit-line-clamp:unset;animation:fadeUp .5s var(--ease)}
+.intro-txt a{text-decoration:underline;text-underline-offset:3px}
+.intro-more{margin-top:8px;font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;background:linear-gradient(currentColor,currentColor) 0 100%/100% 1px no-repeat;padding-bottom:3px;cursor:pointer}
 </style>
 </head>
 <body>
@@ -622,7 +639,7 @@ function card(p,n=0,cls=''){
       <span class="quick">Ver producto</span></div>
     <div class="meta"><div class="new">${p.cat} · Mod. ${p.id}</div><h3>${p.name}</h3><p>${p.mats.join(' / ')} · ${p.heelTxt}</p>
       <div class="price">${eur(p.price)}</div>
-      <div class="dots">${p.colors.map(c=>`<i style="background:${COL[c].h}" title="${cname(c)}"></i>`).join('')}${p.colors.length>1?`<span>${p.colors.length} colores</span>`:''}</div></div>
+      <div class="dots">${p.colors.map((c,i)=>`<button class="sw-dot${i?'':' on'}" data-swatch="${c}" style="--c:${COL[c].h}" aria-label="Ver en color ${cname(c)}" title="${cname(c)}"></button>`).join('')}<span class="cn">${cname(p.colors[0])}${p.colors.length>1?` · ${p.colors.length} colores`:''}</span></div></div>
   </article>`;
 }
 
@@ -695,6 +712,26 @@ const SHOP={tienda:{t:'Toda la colección',d:'Colección Verano 2026: bailarinas
   zapatillas:{t:'Zapatillas',d:'Zapatillas deportivas de piel en blanco con detalles de color.',f:p=>p.cat==='Zapatillas'},
   favoritos:{t:'Lista de deseos',d:'Los modelos que has guardado con el corazón.',f:p=>wish.includes(p.id)}};
 let shopKey='tienda';
+// textos de categoría, calculados con los datos reales del catálogo
+function catFacts(list){
+  const heels=[...new Set(list.map(p=>p.heel).filter(h=>h!==null))].sort((a,b)=>a-b), cols=list.reduce((a,p)=>a+p.colors.length,0);
+  const mats=[...new Set(list.flatMap(p=>p.mats).flatMap(m=>m.split(/ y | \/ /)).map(m=>m.trim().toLowerCase()))];
+  const hs=heels.length>1?`de ${heels.slice(0,-1).join(', ')} y ${heels.at(-1)} mm`:heels.length?`de ${heels[0]} mm`:'';
+  return {n:list.length,cols,hs,mats:mats.length>1?mats.slice(0,-1).join(', ')+' y '+mats.at(-1):mats[0]||''};
+}
+const CAT_LINKS='<a href="#bailarinas">bailarinas</a>, <a href="#salones">salones</a>, <a href="#destalonados">destalonados</a>, <a href="#mocasines">mocasines</a> y <a href="#zapatillas">zapatillas</a>';
+const LONG={
+  tienda:f=>`La colección Verano 2026 de Alba del Mar reúne ${f.n} modelos de zapato de mujer en ${f.cols} combinaciones de color: ${CAT_LINKS}. Hay alturas de tacón ${f.hs}, además de una zapatilla deportiva con cuña. Hay modelos en ${f.mats}. Todos los modelos están hechos en España. Usa el filtro para buscar por tipo, por familia de color o por altura de tacón, y entra en cada ficha para ver todos sus colores.`,
+  bailarinas:f=>`Las bailarinas de Alba del Mar son el zapato plano de la temporada: ${f.n} modelos con tacón ${f.hs} y ${f.cols} colores para elegir. Encontrarás bailarinas de punta fina, de punta cuadrada, con lazo, con adorno metálico, con tachas y unas merceditas con hebilla joya. Están hechas en ${f.mats}. Si buscas algo de poca altura pero con más estructura, mira también los <a href="#salones">salones de tacón bajo</a> o los <a href="#destalonados">destalonados planos</a>.`,
+  salones:f=>`Los salones de la colección Verano 2026 combinan un tacón cómodo con un acabado elegante: ${f.n} modelos con tacón ${f.hs} en ${f.cols} colores. Hay salones de tacón ancho, con hebilla, con lazo y con adornos dorados o de charol, en ${f.mats}. Para un tacón más bajo, mira las <a href="#bailarinas">bailarinas</a>; para dejar el talón al aire, los <a href="#destalonados">destalonados</a>.`,
+  destalonados:f=>`Los destalonados (slingback) son los protagonistas del verano: ${f.n} modelos con tacón ${f.hs} y ${f.cols} colores. Hay versiones planas, de tacón bajo y medio, de punta cerrada o abierta, calados, con lazo de grosgrain, con hebilla o con adorno. Están hechos en ${f.mats}. Si prefieres el talón cerrado, tienes los mismos aires en los <a href="#salones">salones</a> y las <a href="#bailarinas">bailarinas</a>.`,
+  mocasines:f=>`Los mocasines de Alba del Mar son ${f.n} modelos con tacón ${f.hs} en ${f.cols} colores: un mocasín clásico y otro con cadena metálica, en ${f.mats}. Para un día a día aún más informal, mira las <a href="#zapatillas">zapatillas</a>; para algo más fino, las <a href="#bailarinas">bailarinas</a>.`,
+  zapatillas:f=>`La zapatilla deportiva de Alba del Mar es un modelo de piel blanca con detalles de color y suela de cuña, disponible en ${f.cols} combinaciones. Es la opción más cómoda de la colección para el día a día. Si buscas otro zapato plano, mira las <a href="#bailarinas">bailarinas</a> o los <a href="#mocasines">mocasines</a>.`};
+LONG.mujer=LONG.tienda; LONG.novedades=LONG.tienda;
+function intro(k){
+  const s=SHOP[k], f=LONG[k]; if(!f) return `<p>${s.d}</p>`;
+  return `<div class="intro" id="intro"><p class="intro-txt">${f(catFacts(P.filter(s.f)))}</p><button class="intro-more" data-intro aria-expanded="false">Leer más</button></div>`;
+}
 function shopList(){
   let l=P.filter(SHOP[shopKey].f);
   if(filters.cat.length) l=l.filter(p=>filters.cat.includes(p.cat));
@@ -708,7 +745,7 @@ function shopList(){
 }
 function shop(){
   const s=SHOP[shopKey];
-  return `<section class="shop-head">${bc(shopKey==='tienda'?[['Tienda']]:[['Tienda','tienda'],[s.t]])}<span class="eyebrow">Alba del Mar</span><h1>${s.t}</h1><p>${s.d}</p></section>
+  return `<section class="shop-head">${bc(shopKey==='tienda'?[['Tienda']]:[['Tienda','tienda'],[s.t]])}<span class="eyebrow">Alba del Mar</span><h1>${s.t}</h1>${intro(shopKey)}</section>
   <div class="toolbar"><button class="filter-btn" data-open="filters"><svg viewBox="0 0 24 24"><path d="M3 7h10M17 7h4M3 17h4M11 17h10"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>FILTRAR</button>
     <div class="tb-r"><span id="count"></span><div class="view-t"><button class="v1 ${bigGrid?'on':''}" data-view="1" aria-label="Vista grande"><i></i></button><button class="v4 ${bigGrid?'':'on'}" data-view="0" aria-label="Vista en cuadrícula"><i></i><i></i><i></i><i></i></button></div></div></div>
   <div class="chips" id="chips"></div>
@@ -1054,9 +1091,24 @@ function doSearch(){
 }
 $('#q').addEventListener('input',doSearch);
 
+/* ================= COLORES EN LAS TARJETAS ================= */
+// al pasar el ratón o tocar un color, la tarjeta cambia de foto sin entrar en la ficha
+function cardColor(btn){
+  const card=btn.closest('.card'); if(!card) return; const key=btn.dataset.swatch, p=byId(card.dataset.id), cc=COL[key]; if(!p||!cc) return;
+  const ci=p.colors.indexOf(key); if(String(ci)===(card.dataset.ci||'0')&&card.dataset.ci!==undefined) return;
+  card.dataset.ci=ci;
+  card.querySelectorAll('[data-swatch]').forEach(b=>b.classList.toggle('on',b===btn));
+  const cn=card.querySelector('.cn'); if(cn) cn.textContent=cc.n+(p.colors.length>1?` · ${p.colors.length} colores`:'');
+  card.style.setProperty('--tint',shade(cc.h,.55));
+  const img=card.querySelector('.pic img'); if(!img) return;
+  const pre=new Image(); pre.onload=()=>{ img.classList.add('swapping'); setTimeout(()=>{img.src=cc.img; img.alt=altFor(p,key); img.classList.remove('swapping')},140) }; pre.src=cc.img;
+}
+document.addEventListener('mouseover',e=>{ const b=e.target.closest&&e.target.closest('[data-swatch]'); if(b&&matchMedia('(hover:hover)').matches) cardColor(b) });
+
 /* ================= CLICS ================= */
 document.addEventListener('click',e=>{
   const t=e.target, c=s=>t.closest(s); let el;
+  if(el=c('[data-swatch]')){e.preventDefault();e.stopPropagation();cardColor(el);return}
   if(el=c('[data-wish]')){e.preventDefault();e.stopPropagation();const id=el.dataset.wish,i=wish.indexOf(id);i<0?wish.push(id):wish.splice(i,1);
     $$(`[data-wish="${id}"]`).forEach(h=>h.classList.toggle('on',i<0));badges();toast(i<0?'Guardado en tu lista de deseos':'Quitado de tu lista de deseos');if(shopKey==='favoritos'&&$('#grid'))fillGrid();return}
   if(el=c('[data-close]')){closeAll(); if(el.tagName!=='A') return}
@@ -1068,6 +1120,7 @@ document.addEventListener('click',e=>{
   if(el=c('[data-view]')){bigGrid=el.dataset.view==='1';$('#grid').classList.toggle('big',bigGrid);$$('.view-t button').forEach(b=>b.classList.toggle('on',b===el));fillGrid();return}
   if(el=c('[data-f]')){const [k,v]=el.dataset.f.split(':');if(k==='sort')filters.sort=v;else{const i=filters[k].indexOf(v);i<0?filters[k].push(v):filters[k].splice(i,1)}fillFilters();fillGrid();return}
   if(el=c('[data-unf]')){const [k,v]=el.dataset.unf.split(':');filters[k]=filters[k].filter(x=>x!==v);fillFilters();fillGrid();return}
+  if(el=c('[data-intro]')){const w=$('#intro'),o=w.classList.toggle('open');el.textContent=o?'Leer menos':'Leer más';el.setAttribute('aria-expanded',o);return}
   if(t.id==='fClear'){filters={cat:[],color:[],heel:[],sort:'rel'};fillFilters();fillGrid();return}
   if(el=c('[data-color]')){pdp.color=el.dataset.color;swapStage();return}
   if(el=c('[data-flip]')){pdp.flip=el.dataset.flip==='1';swapStage();return}
@@ -1077,7 +1130,7 @@ document.addEventListener('click',e=>{
     const l=cart.find(l=>l.id===pdp.id&&l.c===pdp.color&&l.s===pdp.size); l?l.q++:cart.push({id:pdp.id,c:pdp.color,s:pdp.size,q:1}); store.set('cart',cart); flyToCart(); if(!$('#stage').animate){badges(true);openP('cart')} return}
   if(el=c('[data-q]')){const [i,d]=el.dataset.q.split(':').map(Number);cart[i].q+=d;if(cart[i].q<1)cart.splice(i,1);badges();drawCart();return}
   if(el=c('[data-rm]')){cart.splice(+el.dataset.rm,1);badges();drawCart();return}
-  if(el=c('.card')){pendingCard=el.querySelector('.pic');const h='#p-'+el.dataset.id; if(location.hash===h){pendingCard=null}else location.hash=h; return}
+  if(el=c('.card')){pendingCard=el.querySelector('.pic');const ci=+(el.dataset.ci||0),h='#p-'+el.dataset.id+(ci?'-c'+ci:''); if(location.hash===h){pendingCard=null}else location.hash=h; return}
 });
 function swapStage(){
   const p=byId(pdp.id), st=$('#stage'), cc=COL[pdp.color]; st.innerHTML=shoe(p,pdp.color,{alt:altFor(p,pdp.color),eager:true}); st.classList.remove('swap');void st.offsetWidth;st.classList.add('swap');
