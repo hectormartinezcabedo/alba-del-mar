@@ -1,0 +1,10 @@
+# robots.txt de Alba del Mar
+User-agent: *
+Allow: /
+Disallow: /gracias
+Disallow: /cart
+Disallow: /checkout
+Disallow: /account
+Disallow: /search
+
+Sitemap: https://hectormartinezcabedo.github.io/alba-del-mar/sitemap.xml
