@@ -1101,6 +1101,8 @@ if(consent==='yes') loadGA(); else if(consent===null) setTimeout(()=>$('#cookie'
 
 $('#ldFaq').textContent=JSON.stringify({'@context':'https://schema.org','@type':'FAQPage',mainEntity:FAQ.map(([q,a])=>({'@type':'Question',name:q,acceptedAnswer:{'@type':'Answer',text:a.replace(/<[^>]+>/g,'')}}))});
 render(); badges();
+// búsqueda que llega desde la página 404
+try{const q0=sessionStorage.getItem('alba-q'); if(q0){sessionStorage.removeItem('alba-q'); setTimeout(()=>{$('#q').value=q0; openP('search')},500)}}catch(e){}
 </script>
 </body>
 </html>
