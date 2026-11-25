@@ -29,12 +29,14 @@
 <script type="application/ld+json" id="ldFaq"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Plus+Jakarta+Sans:wght@400;500;600&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
 <style>
+@font-face{font-family:"Alba Firma";src:url("fonts/MrsSaintDelafield-Regular.ttf") format("truetype");font-display:swap}
 :root{
-  --ink:#16110e; --paper:#fffdfa; --sand:#f4eee6; --sand2:#ebe2d6; --line:#e2d8cb; --muted:#85786b;
-  --dawn:#d8572a; --dawn2:#f2a65a; --rose:#f3c9b5;
-  --serif:"Cormorant Garamond","Times New Roman",serif; --sans:Jost,system-ui,sans-serif;
+  --ink:#1B4965; --paper:#FAF9F6; --sand:#EFECE6; --sand2:#E5E0D7; --line:#DDD8CF; --muted:#5C677D;
+  --primary:#1B4965; --secondary:#62B6CB; --accent:#E07A5F; --text:#2B2D42;
+  --dawn:#E07A5F; --dawn2:#F2B3A2; --rose:#F6CFC4;
+  --serif:"Cormorant Garamond","Times New Roman",serif; --sans:"Plus Jakarta Sans",system-ui,sans-serif; --script:"Alba Firma","Mrs Saint Delafield",cursive;
   --ease:cubic-bezier(.22,.8,.2,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -282,7 +284,7 @@ footer .logo{align-items:flex-start;color:#fff;margin-bottom:14px}
 .acc p{padding:0 0 18px;color:#5c5148;font-size:14px;font-weight:300}
 
 /* ---------- paneles ---------- */
-.scrim{position:fixed;inset:0;background:rgba(22,17,14,.45);z-index:40;opacity:0;pointer-events:none;transition:opacity .5s;backdrop-filter:blur(3px)}
+.scrim{position:fixed;inset:0;background:rgba(27,73,101,.45);z-index:40;opacity:0;pointer-events:none;transition:opacity .5s;backdrop-filter:blur(3px)}
 .scrim.on{opacity:1;pointer-events:auto}
 .drawer{position:fixed;top:0;bottom:0;width:min(440px,92vw);background:var(--paper);z-index:41;display:flex;flex-direction:column;transition:transform .65s var(--ease)}
 .drawer.right{right:0;transform:translateX(102%)}.drawer.left{left:0;transform:translateX(-102%)}
@@ -494,7 +496,7 @@ img.shoe.photo{display:block;width:100%;height:auto;mix-blend-mode:multiply}
 .tile:hover .art .shoe.photo{transform:translateY(-10px) scale(1.03)}
 .t-w{background:radial-gradient(90% 70% at 50% 45%,#fff4ee,#f6d9cf 70%,#ecc3b6)}
 .t-m{background:radial-gradient(90% 70% at 50% 45%,#f9f5ef,#ece3d6 70%,#dfd2c0)}
-.tile{color:var(--ink)}.tile .ring{border-color:rgba(22,17,14,.15)}.tile .ring::after{background:var(--ink)}
+.tile{color:var(--ink)}.tile .ring{border-color:rgba(27,73,101,.15)}.tile .ring::after{background:var(--ink)}
 .story-img{position:relative;width:100%;height:100%;object-fit:cover}
 .story .art .arc{display:none}
 .line .th .shoe.photo{width:70%}
@@ -519,6 +521,65 @@ img.shoe.photo{display:block;width:100%;height:auto;mix-blend-mode:multiply}
 .intro.open .intro-txt{display:block;-webkit-line-clamp:unset;animation:fadeUp .5s var(--ease)}
 .intro-txt a{text-decoration:underline;text-underline-offset:3px}
 .intro-more{margin-top:8px;font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;background:linear-gradient(currentColor,currentColor) 0 100%/100% 1px no-repeat;padding-bottom:3px;cursor:pointer}
+
+/* ===================== NUEVA IDENTIDAD: paleta mediterránea ===================== */
+body{color:var(--text);background:var(--paper)}
+h1,h2,h3,.serif{font-weight:500}
+.page-head h1,.shop-head h1,.sec-head h2,.info h1,.card h3,.news h2,.faq summary,.nf h1,.thanks h1,.contact h2,.about h2,.legal h2,.case h3,.d-head h3,.tile h2,.line h5,.cookie b,.join h3{color:var(--primary)}
+.logo .sig{font-family:var(--script);font-style:normal;font-weight:400;font-size:52px;line-height:.9;letter-spacing:0;padding:0 4px;white-space:nowrap}
+.logo small{display:none}
+header .logo .sig{color:var(--primary)} body.over:not(.scrolled) header .logo .sig{color:#fff}
+footer .logo .sig{color:#fff;font-size:58px}
+header{color:var(--primary)}
+.announce{background:var(--primary)}
+footer{background:var(--primary);color:#d6e4ec}
+.copy{border-top-color:rgba(255,255,255,.15)}
+footer a:hover{color:var(--secondary)}
+.foot-promise i,.badge24 .pulse,.promise .pulse{background:var(--secondary)}
+.promise{background:var(--primary)}
+/* botones */
+.btn.fill{background:var(--accent);border-color:var(--accent)} .btn.fill::before{background:var(--primary)}
+.btn.dark{color:var(--primary)} .btn.dark:hover::before{background:var(--primary)}
+.filter-btn{background:var(--accent)} .filter-btn:hover{background:var(--primary)}
+.card .quick,.toast,.cookie .btn[data-cookie=yes]{background:var(--primary)!important}
+.sizes button.on{background:var(--primary);border-color:var(--primary)}
+.sizes button:hover{border-color:var(--secondary)}
+/* brisa: detalles, bordes y estados hover */
+.icons button:hover{background:rgba(98,182,203,.18)}
+.icons em{background:var(--accent)}
+.link:hover,.nav-list a:hover,.bc a:hover{color:var(--secondary)}
+.marquee span::after{color:var(--secondary)}
+.marquee{color:var(--primary)}
+.card:hover .arch{background:#E6EEF0}
+.card .arch::before{background:radial-gradient(circle,rgba(98,182,203,.35),transparent 68%)}
+.sw-dot.on::after{border-color:var(--primary)}
+.f-opts button:hover,.chip,.cats a:hover{border-color:var(--secondary)}
+.f-opts button.on{background:var(--primary);border-color:var(--primary)}
+.intro-txt a,.faq a,.legal a,.ask a{text-decoration-color:var(--secondary)}
+.intro-more{color:var(--primary)}
+.rail-btn:hover{background:var(--primary);border-color:var(--primary)}
+.x:hover{background:var(--primary)}
+.heart.on svg{fill:var(--accent);stroke:var(--accent)}
+.free i,.rh-bar{background:linear-gradient(90deg,var(--accent),var(--secondary))}
+.new,.info .new,.card .new{color:var(--muted)}
+.info .new{color:var(--secondary);font-weight:600}
+.eyebrow{color:inherit}
+.sec-head .eyebrow,.shop-head .eyebrow,.page-head .eyebrow{color:var(--secondary);font-weight:600}
+.tile .ring{border-color:rgba(98,182,203,.5)}.tile .ring::after{background:var(--secondary)}
+.t-w{background:radial-gradient(90% 70% at 50% 45%,#ffffff,#F6DDD5 70%,#EFC7BB)}
+.t-m{background:radial-gradient(90% 70% at 50% 45%,#ffffff,#DCEEF2 70%,#BFE0E8)}
+.story{background:var(--primary)} .story h2 em{color:#F2B3A2} .story p,.stats span{color:#cfe0e8}
+.news{background:var(--sand)}
+.gallery{background:var(--sand)}
+.scrim{background:rgba(27,73,101,.45)}
+.rh-copy2 .eyebrow{color:#F2B3A2}
+.rh-cta .btn:hover::before{background:var(--accent)}
+.shop-head,.page-head{background:var(--sand)}
+::selection{background:rgba(98,182,203,.3)}
+/* etiqueta de propuesta */
+.proposal{position:fixed;right:16px;bottom:16px;z-index:56;background:#fff;color:var(--primary);border:1px solid var(--line);box-shadow:0 10px 30px rgba(27,73,101,.15);border-radius:30px;padding:8px 8px 8px 16px;font-size:12px;display:flex;gap:10px;align-items:center}
+.proposal b{font-weight:600}.proposal a{background:var(--primary);color:#fff;border-radius:20px;padding:6px 12px;font-size:11px;font-weight:600;letter-spacing:.04em}
+@media (max-width:900px){.proposal{bottom:84px;top:auto;right:10px;font-size:11px;padding:6px 6px 6px 12px}.logo .sig{font-size:42px}}
 </style>
 </head>
 <body>
@@ -537,8 +598,7 @@ img.shoe.photo{display:block;width:100%;height:auto;mix-blend-mode:multiply}
 <header id="header">
   <button class="menu-btn" data-open="menu" aria-label="Abrir menú"><i></i><span>MENÚ</span></button>
   <a class="logo" href="#inicio" aria-label="Alba del Mar, inicio">
-    <svg viewBox="0 0 44 16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M10 11a12 12 0 0 1 24 0"/><path d="M22 0v2.500M11 3.500l1.600 1.800M33 3.500l-1.600 1.800"/><path d="M1 11.500c3.500-2 7 2 10.500 0s7-2 10.500 0 7 2 10.500 0 7-2 10.500 0M7 15c2.500-1.400 5 1.400 7.500 0s5-1.400 7.500 0 5 1.400 7.500 0 5-1.400 7.500 0"/></svg>
-    <b>Alba</b><small>DEL MAR</small>
+    <b class="sig">Alba del Mar</b>
   </a>
   <div class="icons">
     <button data-open="search" aria-label="Buscar"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg></button>
@@ -552,7 +612,7 @@ img.shoe.photo{display:block;width:100%;height:auto;mix-blend-mode:multiply}
 
 <footer>
   <div class="fgrid">
-    <div><div class="logo"><b>Alba</b><small>DEL MAR</small></div><p style="max-width:260px;font-size:13px">Zapatos de mujer hechos a mano, pensados para estrenar cada mañana.</p><p style="font-size:13px;margin-top:10px">Calle Ejemplo 1, 03201 Elche<br><a href="#contacto" style="text-decoration:underline">Ver mapa y horario</a></p></div>
+    <div><div class="logo"><b class="sig">Alba del Mar</b></div><p style="max-width:260px;font-size:13px">Zapatos de mujer hechos a mano, pensados para estrenar cada mañana.</p><p style="font-size:13px;margin-top:10px">Calle Ejemplo 1, 03201 Elche<br><a href="#contacto" style="text-decoration:underline">Ver mapa y horario</a></p></div>
     <div><h4>Tienda</h4><ul><li><a href="#tienda">Colección</a></li><li><a href="#bailarinas">Bailarinas</a></li><li><a href="#salones">Salones</a></li><li><a href="#destalonados">Destalonados</a></li><li><a href="#mocasines">Mocasines</a></li><li><a href="#zapatillas">Zapatillas</a></li><li><a href="#novedades">Novedades</a></li><li><a href="#tienda">Todo</a></li></ul></div>
     <div><h4>Ayuda</h4><ul><li><a href="#preguntas">Preguntas frecuentes</a></li><li><a href="#preguntas">Envíos y devoluciones</a></li><li><a href="#contacto">Contacto</a></li><li><a href="#contacto">Cómo llegar</a></li></ul></div>
     <div><h4>La casa</h4><ul><li><a href="#nosotros">Nosotros y el equipo</a></li><li><a href="#nosotros">Casos de éxito</a></li><li><a href="#privacidad">Política de privacidad</a></li></ul><div class="foot-promise"><i></i>Respondemos en menos de 24 h laborables</div></div>
@@ -853,7 +913,7 @@ function nosotros(){return pageHead('Nosotros','Un taller pequeño, un equipo qu
  <div class="wrap"><div class="about">
   <figure class="team reveal"><span class="ph">Pendiente · foto real del equipo</span>
    <svg viewBox="0 0 400 240" role="img" aria-label="Espacio reservado para la foto del equipo de Alba del Mar en el taller">
-    <g fill="#16110e" opacity=".16"><circle cx="110" cy="96" r="30"/><path d="M58 240c0-60 22-98 52-98s52 38 52 98z"/><circle cx="200" cy="76" r="34"/><path d="M142 240c0-70 24-116 58-116s58 46 58 116z"/><circle cx="292" cy="98" r="30"/><path d="M240 240c0-60 22-96 52-96s52 36 52 96z"/></g></svg>
+    <g fill="#1B4965" opacity=".16"><circle cx="110" cy="96" r="30"/><path d="M58 240c0-60 22-98 52-98s52 38 52 98z"/><circle cx="200" cy="76" r="34"/><path d="M142 240c0-70 24-116 58-116s58 46 58 116z"/><circle cx="292" cy="98" r="30"/><path d="M240 240c0-60 22-96 52-96s52 36 52 96z"/></g></svg>
    <figcaption>El equipo de Alba del Mar en el taller</figcaption></figure>
   <div class="reveal" style="--d:.15s"><span class="eyebrow">El equipo</span><h2 style="margin-top:8px">Las manos que hay detrás de cada par</h2>
    <p style="color:#463c34;font-weight:300;font-size:15px;margin-bottom:14px">Cortamos, cosemos y montamos cada zapato en series pequeñas. Quien responde tus mensajes es la misma gente que conoce las hormas, así que puede aconsejarte de verdad.</p>
@@ -963,16 +1023,16 @@ function rhDraw(P){
   const key=tag+'|'+zoom.toFixed(3)+'|'+c.width;
   if(im && key!==rh.last){
     rh.last=key; const x=c.getContext('2d'), W=c.width, H=c.height, ar=720/1280, portrait=H/W>1.05;
-    x.fillStyle='#070304'; x.fillRect(0,0,W,H);
+    x.fillStyle='#0d2433'; x.fillRect(0,0,W,H);
     let iw,ih,ix,iy;
     if(portrait){ iw=W/lerp(.5,.56,vp); ih=iw*ar; ix=W/2-iw*lerp(.5,.53,eo(vp)); iy=H*lerp(.46,.66,eo(cl((vp-.7)/.3)))-ih/2 }
     else { iw=Math.max(W,H/ar); ih=iw*ar; ix=(W-iw)/2; iy=(H-ih)/2 }
     x.save(); x.translate(W/2,H*.6); x.scale(zoom,zoom); x.translate(-W/2,-H*.6); try{x.drawImage(im,ix,iy,iw,ih)}catch(e){} x.restore();
-    if(portrait){const g1=x.createLinearGradient(0,iy-2,0,iy+ih*.25);g1.addColorStop(0,'#070304');g1.addColorStop(1,'rgba(7,3,4,0)');x.fillStyle=g1;x.fillRect(0,iy-2,W,ih*.25);
-      const g2=x.createLinearGradient(0,iy+ih*.75,0,iy+ih+2);g2.addColorStop(0,'rgba(7,3,4,0)');g2.addColorStop(1,'#070304');x.fillStyle=g2;x.fillRect(0,iy+ih*.75,W,ih*.25+2)}
+    if(portrait){const g1=x.createLinearGradient(0,iy-2,0,iy+ih*.25);g1.addColorStop(0,'#0d2433');g1.addColorStop(1,'rgba(13,36,51,0)');x.fillStyle=g1;x.fillRect(0,iy-2,W,ih*.25);
+      const g2=x.createLinearGradient(0,iy+ih*.75,0,iy+ih+2);g2.addColorStop(0,'rgba(13,36,51,0)');g2.addColorStop(1,'#0d2433');x.fillStyle=g2;x.fillRect(0,iy+ih*.75,W,ih*.25+2)}
     const txt=Math.max(cl(1-(vp-.1)/.12), rh.zoom);
-    if(txt>0&&!portrait){const g=x.createLinearGradient(0,0,W*.55,0);g.addColorStop(0,`rgba(5,2,3,${(.72*txt).toFixed(3)})`);g.addColorStop(1,'rgba(5,2,3,0)');x.fillStyle=g;x.fillRect(0,0,W*.55,H)}
-    if(txt>0&&portrait){const g=x.createLinearGradient(0,0,0,H*.5);g.addColorStop(0,`rgba(5,2,3,${(.6*txt).toFixed(3)})`);g.addColorStop(1,'rgba(5,2,3,0)');x.fillStyle=g;x.fillRect(0,0,W,H*.5)}
+    if(txt>0&&!portrait){const g=x.createLinearGradient(0,0,W*.55,0);g.addColorStop(0,`rgba(13,36,51,${(.72*txt).toFixed(3)})`);g.addColorStop(1,'rgba(13,36,51,0)');x.fillStyle=g;x.fillRect(0,0,W*.55,H)}
+    if(txt>0&&portrait){const g=x.createLinearGradient(0,0,0,H*.5);g.addColorStop(0,`rgba(13,36,51,${(.6*txt).toFixed(3)})`);g.addColorStop(1,'rgba(13,36,51,0)');x.fillStyle=g;x.fillRect(0,0,W,H*.5)}
   }
   const c1=cl(1-(vp-.08)/.12); $('#rhCopy1').style.opacity=c1.toFixed(3); $('#rhCopy1').style.transform=`translateY(${((1-c1)*-24).toFixed(1)}px)`;
   $('#rhCta').style.opacity=c1.toFixed(3); $('#rhCta').style.pointerEvents=c1>.5?'auto':'none';
