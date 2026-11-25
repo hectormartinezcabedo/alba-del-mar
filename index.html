@@ -566,7 +566,7 @@ img.shoe.photo{display:block;width:100%;height:auto;mix-blend-mode:multiply}
   <div class="d-head"><h3>Menú</h3><button class="x" data-close>✕</button></div>
   <div class="d-body">
     <nav class="nav-list">
-      <a href="#novedades" style="--n:0">Novedades <small>AMANECER 2027</small></a>
+      <a href="#novedades" style="--n:0">Novedades <small>VERANO 2026</small></a>
       <a href="#tienda" style="--n:1">Colección <small>38 MODELOS</small></a>
       <a href="#bailarinas" style="--n:2" class="sub">Bailarinas</a><a href="#salones" style="--n:2" class="sub">Salones</a><a href="#destalonados" style="--n:3" class="sub">Destalonados</a><a href="#mocasines" style="--n:3" class="sub">Mocasines</a><a href="#zapatillas" style="--n:3" class="sub">Zapatillas</a>
       <a href="#favoritos" style="--n:4">Lista de deseos</a>
@@ -1039,7 +1039,7 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){e.tar
   io.unobserve(e.target)}}),{threshold:.15});
 const observe=()=>$$('.reveal').forEach(el=>io.observe(el));
 function onScroll(){
-  const y=scrollY, rhEl=$('#rh'); document.body.classList.toggle('scrolled',rhEl?(rh.done&&y>rhEl.offsetHeight-innerHeight*1.02):y>innerHeight*.7);
+  const y=scrollY, rhEl=$('#rh'); document.body.classList.toggle('scrolled',!!(rhEl?(rh.done&&y>rhEl.offsetHeight-innerHeight*1.02):y>innerHeight*.7));
   $('#header').classList.toggle('shadow',y>10);
   const hs=$('#heroShoe'); if(hs&&y<innerHeight) hs.style.transform=`translate(-50%,calc(-50% + ${y*.28}px)) rotate(${-y*.02}deg) scale(${1+y*.0004})`;
   const ss=$('#storyShoe'); if(ss){const r=ss.getBoundingClientRect(),k=(r.top+r.height/2-innerHeight/2)/innerHeight; ss.style.transform=`translateY(${k*-60}px) rotate(${k*10}deg)`}
